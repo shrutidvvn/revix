@@ -2,3 +2,31 @@ venv/
 __pycache__/
 *.pyc
 .env
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+
+# REVIX uploaded documents
+backend/uploads/*
+backend/data/documents.json
+
+# Generated Excel files
+*.xlsx
+*.xls
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/

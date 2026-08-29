@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="REVIX — Document Intelligence Workspace"
+    >
+
+    <title>REVIX — Document Intelligence</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- REVIX CSS -->
+    <link rel="stylesheet" href="frontend.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         SPLASH SCREEN
+    ====================================================== -->
+
+    <section
+        id="splash-screen"
+        class="splash-screen"
+    >
+
+        <canvas
+            id="waveCanvas"
+            aria-hidden="true"
+        ></canvas>
+
+        <div class="ambient-glow"></div>
+        <div class="vignette"></div>
+        <div class="noise"></div>
+
+        <!-- Corner decorations -->
+
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+
+        <!-- Interface labels -->
+
+        <div class="interface-label top-left">
+            <span class="status-dot"></span>
+            SYSTEM ONLINE
+        </div>
+
+        <div class="interface-label top-right">
+            REVIX / 01
+        </div>
+
+        <div class="interface-label bottom-left">
+            DOCUMENT INTELLIGENCE
+        </div>
+
+        <div class="interface-label bottom-center">
+            <span class="green-text">REVIX AI</span>
+        </div>
+
+        <div class="interface-label bottom-right">
+            V1.0
+        </div>
+
+        <!-- Hero -->
+
+        <main class="hero">
+
+            <div
+                class="revix-emblem"
+                aria-hidden="true"
+            >
+
+                <div class="emblem-ring outer"></div>
+                <div class="emblem-ring inner"></div>
+
+                <div class="emblem-letter">
+                    R
+                </div>
+
+            </div>
+
+            <div class="descriptor">
+                DOCUMENT INTELLIGENCE
+            </div>
+
+            <h1>
+                REVIX
+            </h1>
+
+            <div class="subtitle">
+                READ · RESCUE · REVISE
+            </div>
+
+            <button
+                id="enterWorkspace"
+                class="enter-button"
+                type="button"
+            >
+                ENTER WORKSPACE
+
+                <span class="arrow">
+                    →
+                </span>
+            </button>
+
+        </main>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         APPLICATION
+    ====================================================== -->
+
+    <section
+        id="appScreen"
+        class="app-screen"
+        aria-label="REVIX Workspace"
+    >
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="app-header">
+
+            <div class="app-brand">
+
+                <div class="app-brand-mark">
+                    R
+                </div>
+
+                <div>
+
+                    <div class="app-brand-name">
+                        REVIX
+                    </div>
+
+                    <div class="app-brand-subtitle">
+                        DOCUMENT INTELLIGENCE
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="app-header-right">
+
+                <div class="app-status">
+
+                    <span class="status-dot"></span>
+
+                    SYSTEM ONLINE
+
+                </div>
+
+                <button
+                    id="backToSplash"
+                    class="back-button"
+                    type="button"
+                >
+                    ← BACK
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             WORKSPACE
+        ================================================== -->
+
+        <div class="workspace">
+
+            <!-- =================================================
+                 SIDEBAR
+            ================================================== -->
+
+            <aside class="documents-sidebar">
+
+                <div class="sidebar-heading">
+
+                    <div>
+                        <span class="section-number">
+                            01
+                        </span>
+
+                        DOCUMENTS
+                    </div>
+
+                    <button
+                        id="sidebarUpload"
+                        class="upload-small-button"
+                        type="button"
+                    >
+                        + UPLOAD
+                    </button>
+
+                </div>
+
+
+
+                <!-- Hidden file input -->
+
+                <input
+                    id="fileInput"
+                    type="file"
+                    accept=".pdf,.png,.jpg,.jpeg,.avif,.txt,application/pdf,image/png,image/jpeg,image/avif,text/plain"
+                    multiple
+                    hidden
+                >
+
+
+
+                <!-- Upload box -->
+
+                <div
+                    id="uploadBox"
+                    class="upload-box"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Upload document"
+                >
+
+                    <div class="upload-icon">
+                        +
+                    </div>
+
+                    <h2>
+                        DROP DOCUMENT
+                    </h2>
+
+                    <p>
+                        PDF · PNG · JPG · JPEG · AVIF · TXT
+                    </p>
+
+                    <button
+                        id="selectFile"
+                        class="upload-button"
+                        type="button"
+                    >
+                        SELECT FILE →
+                    </button>
+
+                </div>
+
+
+
+                <!-- Search -->
+
+                <div class="search-wrapper">
+
+                    <span
+                        class="search-icon"
+                        aria-hidden="true"
+                    >
+                        ⌕
+                    </span>
+
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="Search documents..."
+                        autocomplete="off"
+                        aria-label="Search documents"
+                    >
+
+                </div>
+
+
+
+                <!-- Document list -->
+
+                <div
+                    id="documentsContainer"
+                    class="documents-container"
+                ></div>
+
+            </aside>
+
+
+
+            <!-- =================================================
+                 MAIN DOCUMENT WORKSPACE
+            ================================================== -->
+
+            <main class="document-workspace">
+                <!-- =================================================
+     AI EXTRACTION DISCLAIMER
+================================================== -->
+
+<div class="extraction-disclaimer">
+
+    <span class="disclaimer-label">
+        AI EXTRACTION NOTICE :
+    </span>
+
+    <span class="disclaimer-text">
+        REVIX may occasionally make extraction errors.
+        Please double-check the extracted information and
+        edit anything incorrect before saving.
+    </span>
+
+</div>
+
+                <!-- Empty state -->
+
+                <div
+                    id="workspaceEmpty"
+                    class="workspace-empty"
+                >
+
+                    <div class="workspace-symbol">
+                        R
+                    </div>
+
+                    <div class="workspace-empty-title">
+                        SELECT A DOCUMENT
+                    </div>
+
+                    <p class="workspace-empty-text">
+                        Upload or select a document from the library
+                        to begin working with it.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     DOCUMENT VIEWER
+                ================================================== -->
+
+                <section
+                    id="documentViewer"
+                    class="document-viewer hidden"
+                >
+
+                    <!-- Viewer header -->
+
+                    <div class="document-viewer-header">
+
+                        <div class="viewer-title-area">
+
+                            <h1
+                                id="viewerFilename"
+                                class="viewer-filename"
+                            >
+                                Document
+                            </h1>
+
+                            <div
+                                id="viewerMeta"
+                                class="viewer-meta"
+                            >
+                                DOCUMENT
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="viewer-actions">
+
+                            <button
+                                id="editButton"
+                                class="secondary-action"
+                                type="button"
+                            >
+                                EDIT
+                            </button>
+
+                            <button
+                                id="saveButton"
+                                class="primary-action"
+                                type="button"
+                            >
+                                SAVE
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         DOCUMENT CONTENT GRID
+                    ================================================== -->
+
+                    <div class="analysis-grid">
+
+                        <!-- =================================================
+                             DOCUMENT PREVIEW
+                        ================================================== -->
+
+                        <div
+                            id="imagePreviewPanel"
+                            class="document-preview-panel"
+                        >
+
+                            <div class="panel-label">
+                                DOCUMENT PREVIEW
+                            </div>
+
+                            <div class="document-preview-frame">
+
+                                <!-- Loading -->
+
+                                <div
+                                    id="previewLoading"
+                                    class="preview-loading hidden"
+                                >
+                                    <div class="loading-ring"></div>
+
+                                    <span>
+                                        LOADING DOCUMENT
+                                    </span>
+                                </div>
+
+
+
+                                <!-- Empty preview -->
+
+                                <div
+                                    id="previewEmpty"
+                                    class="preview-empty"
+                                >
+                                    <div class="preview-empty-symbol">
+                                        R
+                                    </div>
+
+                                    <div>
+                                        NO PREVIEW AVAILABLE
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Image preview -->
+
+                                <img
+                                    id="imagePreview"
+                                    class="document-image-preview hidden"
+                                    src=""
+                                    alt="Document preview"
+                                >
+
+
+
+                                <!-- PDF preview -->
+
+                                <iframe
+                                    id="pdfPreview"
+                                    class="pdf-preview hidden"
+                                    title="PDF document preview"
+                                ></iframe>
+
+
+
+                                <!-- Text preview -->
+
+                                <pre
+                                    id="textPreview"
+                                    class="text-preview hidden"
+                                ></pre>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             EXTRACTION
+                        ================================================== -->
+
+                        <div class="extraction-panel">
+
+                            <div class="panel-label">
+                                EXTRACTED INFORMATION
+                            </div>
+
+                            <textarea
+                                id="extractedText"
+                                class="extracted-text"
+                                spellcheck="false"
+                                readonly
+                                placeholder="Extracted document information will appear here..."
+                            ></textarea>
+
+                            <div
+                                id="extractionStatus"
+                                class="extraction-status"
+                            >
+                                READY
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+
+
+        <!-- =================================================
+             REVIX AI BUTTON
+        ================================================== -->
+
+        <button
+            id="chatButton"
+            class="chat-button"
+            type="button"
+            aria-label="Open REVIX AI"
+        >
+
+            <span class="chat-dot"></span>
+
+            REVIX AI
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PDF.JS
+    ====================================================== -->
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs"
+        type="module"
+    ></script>
+
+
+
+    <!-- =====================================================
+         TESSERACT.JS
+    ====================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+
+
+    <!-- =====================================================
+         REVIX JAVASCRIPT
+    ====================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+<script src="js.js"></script>
+  
+</body>
+
+</html>
